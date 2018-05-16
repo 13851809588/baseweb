@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bea.server.modules.system.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.bea.server.modules.system.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="userGroupID" jdbcType="INTEGER" property="usergroupid" />
+    <result column="roleID" jdbcType="INTEGER" property="roleid" />
+    <result column="loginName" jdbcType="VARCHAR" property="loginname" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="certsn" jdbcType="VARCHAR" property="certsn" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="mobilePhone" jdbcType="VARCHAR" property="mobilephone" />
+    <result column="ipAddress" jdbcType="CHAR" property="ipaddress" />
+    <result column="policyID" jdbcType="INTEGER" property="policyid" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="isSysDefault" jdbcType="BIT" property="issysdefault" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="themeType" jdbcType="VARCHAR" property="themetype" />
+    <result column="preFix" jdbcType="INTEGER" property="prefix" />
+    <result column="startStandardIP" jdbcType="CHAR" property="startstandardip" />
+    <result column="endStandardIP" jdbcType="CHAR" property="endstandardip" />
+    <result column="verifyIPAddr" jdbcType="BIT" property="verifyipaddr" />
+    <result column="updatePwdCount" jdbcType="INTEGER" property="updatepwdcount" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+
+  <sql id="user_findPage_where">
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+        <if test="userid != null">
+          AND userID = #{userid}
+        </if>
+    </trim>
+  </sql>
+
+  <select id="pageQuery" resultType="User" parameterType="java.util.HashMap">
+    SELECT USERID,USERNAME FROM T_SYS_USER
+    <include refid="user_findPage_where"/>
+    <if test="sortColumns != null">
+      ORDER BY ${sortColumns}
+    </if>
+  </select>
+
+  <select id="find" resultType="User" parameterType="java.util.HashMap">
+    SELECT USERID,USERNAME, usergroupid FROM T_SYS_USER
+    <include refid="user_findPage_where"/>
+    <if test="sortColumns != null">
+      ORDER BY ${sortColumns}
+    </if>
+  </select>
+
+</mapper>
